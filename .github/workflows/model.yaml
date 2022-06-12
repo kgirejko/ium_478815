@@ -1,32 +1,27 @@
-name: model
+name: my-model
 on: [push]
 jobs:
   run:
     runs-on: [ubuntu-latest]
     steps:
-    	- name: Checkout
-	  uses: actions/checkout@v2
-	- name: Setup
-	  uses: actions/setup-python@v2
-	  with:
-	  	python-version: '3.x'
-	- name: CML
-	  uses: iterative/setup-cml@v1
-	- name: Train & evaluate
-	  env:
-	  	REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-	  run: |
-		pip3 install pandas
-		pip3 install numpy
-		pip3 install matplotlib
-		pip3 install tensorflow
-		pip3 install torch
-		pip3 install keras
-		python train.py 100
-		python evaluation.py
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+      - name: CML
+        uses: iterative/setup-cml@v1
+      - name: Main
+        env:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          pip3 install tensorflow matplotlib pandas numpy torch
+          python3 train.py 100
+          python3 evaluation.py
           
-          	cat metrics.txt >> raport.md
-		cml-publish metrics.png --md >> report.md
-          	cml-send-comment raport.md
-          	cml-send-github-check raport.md
-	  shell: bash
+          cat metrics.txt >> report.md
+          cml-publish metrics.jpg --md >> report.md
+          cml-send-comment report.md
+          cml-send-github-check report.md
+        shell: bash
