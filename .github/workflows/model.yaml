@@ -16,7 +16,7 @@ jobs:
         env:
           repo_token: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          pip3 install tensorflow matplotlib pandas numpy torch
+          pip3 install tensorflow matplotlib pandas numpy torch keras sklearn
           python3 train.py 100
           python3 evaluation.py
           
