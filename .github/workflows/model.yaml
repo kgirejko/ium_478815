@@ -20,7 +20,7 @@ jobs:
           python3 train.py 100
           python3 evaluation.py
           
-          cat metrics.txt >> report.md
+          cat metric.txt >> report.md
           cml-publish metrics.png --md >> report.md
           cml-send-comment report.md
           cml-send-github-check report.md
